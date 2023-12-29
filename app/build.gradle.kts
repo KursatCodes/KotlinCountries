@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
     id("com.google.devtools.ksp")
+    id("androidx.navigation.safeargs")
 
 }
 
@@ -19,8 +20,8 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-    dataBinding{
-        enable = true
+    buildFeatures{
+        dataBinding = true
     }
     buildTypes {
         release {
@@ -47,7 +48,7 @@ dependencies {
     val glideVersion = "4.9.0"
     val rxJavaVersion = "2.1.1"
     val roomVersion = "2.6.1"
-    val navVersion = "2.2.1"
+    val navVersion = "2.7.6"
     val preferencesVersion = "1.1.0"
 
     implementation("androidx.core:core-ktx:1.12.0")
