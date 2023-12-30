@@ -9,9 +9,9 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingComponent
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import com.muhammedkursat.kotlincountries.databinding.FragmentFeedBinding
 
-@Suppress("UNREACHABLE_CODE")
 class FeedFragment : Fragment() {
     private lateinit var bindingComponent: FragmentFeedBinding
 
@@ -34,8 +34,9 @@ class FeedFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         bindingComponent.feedButton.setOnClickListener{
-            var action = FeedFragmentDirections.actionFeedFragmentToDetailsFragment()
-            Navigation.findNavController(it).navigate(action)
+            var arg= bindingComponent.myEdittext.text.toString()
+            var action = FeedFragmentDirections.actionFeedFragmentToDetailsFragment(arg)
+            it.findNavController().navigate(action) //Navigation.findNavController(it).navigate(action)
         }
     }
 }

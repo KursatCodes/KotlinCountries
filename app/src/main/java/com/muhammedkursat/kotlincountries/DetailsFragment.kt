@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.muhammedkursat.kotlincountries.databinding.FragmentDetailsBinding
 
 class DetailsFragment : Fragment() {
@@ -28,9 +29,14 @@ private lateinit var binding: FragmentDetailsBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        arguments?.let {
+            var gelen = DetailsFragmentArgs.fromBundle(it).detailArg
+            binding.textMy.setText(gelen)
+        }
         binding.button2.setOnClickListener {
-            var action = DetailsFragmentDirections.actionDetailsFragmentToFeedFragment()
+            var action = DetailsFragmentDirections.actionDetailsFragmentToFeedFragment("as")
             Navigation.findNavController(it).navigate(action)
+
         }
     }
 }
