@@ -17,6 +17,6 @@ class FeedViewModel:ViewModel() {
         var countries = arrayListOf<Country>(country1,country2,country3)
         countryList.value = countries
         countryError.value = false
-        countryLoading.value = false
+        countryLoading.value = true
     }
 }
