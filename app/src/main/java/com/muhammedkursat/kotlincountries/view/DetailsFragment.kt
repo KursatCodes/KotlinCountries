@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.muhammedkursat.kotlincountries.R
 import com.muhammedkursat.kotlincountries.databinding.FragmentDetailsBinding
+import com.muhammedkursat.kotlincountries.model.Country
 
 class DetailsFragment : Fragment() {
 private lateinit var binding: FragmentDetailsBinding
