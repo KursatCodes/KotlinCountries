@@ -1,34 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".DetailsFragment">
-
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
+        tools:context=".view.DetailsFragment">
+        <ImageView
+            android:id="@+id/flagImage"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="148dp"
-            android:layout_marginTop="298dp"
-            android:text="Button2"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_alignParentTop="true"
+            android:scaleType="fitCenter"
+            android:minHeight="200dp"
+            android:src="@mipmap/ic_launcher"
+            android:layout_marginTop="10dp">
+        </ImageView>
 
         <TextView
-            android:id="@+id/text_my"
+            android:id="@+id/nameText_Detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="174dp"
-            android:text="@string/app_name"
+            android:text="İsim"
             android:textSize="25sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_below="@id/flagImage"
+            android:textStyle="bold"
+            android:padding="7dp"
+            android:layout_centerHorizontal="true">
+        </TextView>
+        <TextView
+            android:id="@+id/regionText_Detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Region"
+            android:textSize="21sp"
+            android:layout_below="@id/nameText_Detail"
+            android:textStyle="normal"
+            android:padding="7dp"
+            android:layout_centerHorizontal="true">
+        </TextView>
+        <TextView
+            android:id="@+id/capitalText_Detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Capital"
+            android:textSize="21sp"
+            android:layout_below="@id/regionText_Detail"
+            android:textStyle="normal"
+            android:padding="7dp"
+            android:layout_centerHorizontal="true">
+        </TextView>
+        <TextView
+            android:id="@+id/languageText_Detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Language"
+            android:textSize="21sp"
+            android:layout_below="@id/capitalText_Detail"
+            android:textStyle="normal"
+            android:padding="7dp"
+            android:layout_centerHorizontal="true">
+        </TextView>
+    </RelativeLayout>
 </layout>

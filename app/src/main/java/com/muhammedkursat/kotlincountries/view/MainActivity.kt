@@ -1,7 +1,8 @@
-package com.muhammedkursat.kotlincountries
+package com.muhammedkursat.kotlincountries.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.muhammedkursat.kotlincountries.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
