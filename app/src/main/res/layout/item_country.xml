@@ -23,10 +23,11 @@
         android:layout_gravity="center">
         <TextView
             android:id="@+id/nameText"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:text="İsim"
             android:layout_gravity="center"
+            android:gravity="center"
             android:textSize="25sp"
             android:padding="5dp"/>
         <TextView

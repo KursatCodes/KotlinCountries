@@ -40,7 +40,8 @@ class FeedFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = ViewModelProviders.of(this).get(FeedViewModel::class.java)
-        viewModel.refreshCountries()
+        //viewModel.refreshCountries()
+        viewModel.refreshData()
 
         bindingComponent.countryListem.layoutManager = LinearLayoutManager(context)
         bindingComponent.countryListem.adapter = countryAdapter
