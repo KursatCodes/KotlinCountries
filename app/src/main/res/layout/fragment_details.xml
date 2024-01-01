@@ -62,5 +62,16 @@
             android:padding="7dp"
             android:layout_centerHorizontal="true">
         </TextView>
+        <TextView
+            android:id="@+id/currencyText_Detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Currency"
+            android:textSize="21sp"
+            android:layout_below="@id/languageText_Detail"
+            android:textStyle="normal"
+            android:padding="7dp"
+            android:layout_centerHorizontal="true">
+        </TextView>
     </RelativeLayout>
 </layout>

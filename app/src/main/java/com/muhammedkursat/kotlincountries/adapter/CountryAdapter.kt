@@ -5,12 +5,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.muhammedkursat.kotlincountries.R
 import com.muhammedkursat.kotlincountries.model.Country
+import com.muhammedkursat.kotlincountries.view.FeedFragmentDirections
 
-class CountryAdapter(val countryList: ArrayList<Country>): RecyclerView.Adapter<CountryAdapter.CountryViewHolder>() {
+class CountryAdapter(var countryList: ArrayList<Country>): RecyclerView.Adapter<CountryAdapter.CountryViewHolder>() {
     class CountryViewHolder(var view:View) :ViewHolder(view){//holder sinifimiz
         val nametext= view.findViewById<TextView>(R.id.nameText)
         val regiontext= view.findViewById<TextView>(R.id.regionText)
@@ -29,6 +31,10 @@ class CountryAdapter(val countryList: ArrayList<Country>): RecyclerView.Adapter<
     override fun onBindViewHolder(holder: CountryViewHolder, position: Int) {// adapterdeki itemlara ulasıyoruz
         holder.nametext.text = countryList[position].countryName
         holder.regiontext.text = countryList[position].countryRegion
+        holder.view.setOnClickListener {
+            var action = FeedFragmentDirections.actionFeedFragmentToDetailsFragment(position)
+            Navigation.findNavController(it).navigate(action)
+        }
     }
     fun updateCountryList(newList: List<Country>){
         countryList.clear()

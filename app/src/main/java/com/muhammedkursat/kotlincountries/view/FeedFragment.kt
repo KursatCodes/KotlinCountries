@@ -13,12 +13,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.muhammedkursat.kotlincountries.R
 import com.muhammedkursat.kotlincountries.adapter.CountryAdapter
 import com.muhammedkursat.kotlincountries.databinding.FragmentFeedBinding
+import com.muhammedkursat.kotlincountries.model.Country
 import com.muhammedkursat.kotlincountries.viewmodel.FeedViewModel
 
 class FeedFragment : Fragment() {
     private lateinit var bindingComponent: FragmentFeedBinding
     private lateinit var viewModel: FeedViewModel
-    private val countryAdapter = CountryAdapter(arrayListOf())
+    private var countryAdapter = CountryAdapter(arrayListOf())
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,12 +44,13 @@ class FeedFragment : Fragment() {
 
         bindingComponent.countryListem.layoutManager = LinearLayoutManager(context)
         bindingComponent.countryListem.adapter = countryAdapter
+        val liste = arrayListOf<Country>()
         observeLiveData()
     }
-    fun observeLiveData(){
+    private fun observeLiveData(){
         viewModel.countryList.observe(viewLifecycleOwner, Observer {
             it?.let {
-                  bindingComponent.countryListem.visibility= View.VISIBLE
+                bindingComponent.countryListem.visibility= View.VISIBLE
                 bindingComponent.errorMessage.visibility= View.GONE
                 bindingComponent.progressBar.visibility= View.GONE
                 countryAdapter.updateCountryList(it)
