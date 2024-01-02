@@ -1,5 +1,6 @@
 package com.muhammedkursat.kotlincountries.view
 
+import android.opengl.Visibility
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -40,12 +41,20 @@ class FeedFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = ViewModelProviders.of(this).get(FeedViewModel::class.java)
-        //viewModel.refreshCountries()
         viewModel.refreshData()
 
         bindingComponent.countryListem.layoutManager = LinearLayoutManager(context)
         bindingComponent.countryListem.adapter = countryAdapter
-        val liste = arrayListOf<Country>()
+
+
+        bindingComponent.swipeRefreshLayout.setOnRefreshListener {
+            bindingComponent.errorMessage.visibility = View.GONE
+            bindingComponent.progressBar.visibility = View.VISIBLE
+            bindingComponent.countryListem.visibility = View.GONE
+            bindingComponent.swipeRefreshLayout.isRefreshing = false
+            viewModel.refreshData()
+        }
+
         observeLiveData()
     }
     private fun observeLiveData(){

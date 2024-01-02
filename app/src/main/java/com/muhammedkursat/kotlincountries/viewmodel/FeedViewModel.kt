@@ -23,7 +23,7 @@ class FeedViewModel:ViewModel() {
         val country2 = Country("Azerbaycan","Asia","Bakü","www.ss.com","AZR","Turkish")
         val country3 = Country("Filistin","Asia","Kudüs","www.ss.com","DNR","Arabic")
 
-        var countries = arrayListOf<Country>(country1,country2,country3)
+        val countries = arrayListOf<Country>(country1,country2,country3)
         countryList.value = countries
         countryError.value = false
         countryLoading.value = false
