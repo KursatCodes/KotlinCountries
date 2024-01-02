@@ -10,12 +10,15 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.muhammedkursat.kotlincountries.R
 import com.muhammedkursat.kotlincountries.model.Country
+import com.muhammedkursat.kotlincountries.util.downloadImagesFromUrl
+import com.muhammedkursat.kotlincountries.util.placeHolderProgressBar
 import com.muhammedkursat.kotlincountries.view.FeedFragmentDirections
 
 class CountryAdapter(var countryList: ArrayList<Country>): RecyclerView.Adapter<CountryAdapter.CountryViewHolder>() {
     class CountryViewHolder(var view:View) :ViewHolder(view){//holder sinifimiz
         val nametext= view.findViewById<TextView>(R.id.nameText)
         val regiontext= view.findViewById<TextView>(R.id.regionText)
+        val imageView = view.findViewById<ImageView>(R.id.imageView)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CountryViewHolder {// layout ile adapteri bagliyoruz
@@ -35,6 +38,10 @@ class CountryAdapter(var countryList: ArrayList<Country>): RecyclerView.Adapter<
             var action = FeedFragmentDirections.actionFeedFragmentToDetailsFragment(position)
             Navigation.findNavController(it).navigate(action)
         }
+        holder.imageView.downloadImagesFromUrl(
+            countryList[position].countryFlag,
+            placeHolderProgressBar(holder.view.context)
+        )
     }
     fun updateCountryList(newList: List<Country>){
         countryList.clear()

@@ -20,7 +20,7 @@ interface CountryDao {
 
     @Query("DELETE FROM country")
     suspend fun deleteAllCountries()
-    
+
     @Delete
-    suspend fun deleteCountry(countryID: Int)
+    suspend fun deleteCountry(country: Country)
 }

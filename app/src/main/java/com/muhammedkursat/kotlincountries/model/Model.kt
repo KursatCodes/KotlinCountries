@@ -10,22 +10,22 @@ import com.google.gson.annotations.SerializedName
 data class Country(
     @ColumnInfo(name = "name")
     @SerializedName("name")
-    val countryName: String?,
+    var countryName: String?,
     @ColumnInfo(name = "region")
     @SerializedName("region")
-    val countryRegion: String?,
+    var countryRegion: String?,
     @ColumnInfo(name = "capital")
     @SerializedName("capital")
-    val countryCapital: String?,
+    var countryCapital: String?,
     @ColumnInfo(name = "flag")
     @SerializedName("flag")
-    val countryFlag: String?,
+    var countryFlag: String?,
     @ColumnInfo(name = "currency")
     @SerializedName("currency")
-    val countryCurrency: String?,
+    var countryCurrency: String?,
     @ColumnInfo(name = "language")
     @SerializedName("language")
-    val countryLanguage: String?){
+    var countryLanguage: String?){
 
     @PrimaryKey(autoGenerate = true)
     var uuID = 0
