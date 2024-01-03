@@ -1,5 +1,6 @@
 package com.muhammedkursat.kotlincountries.viewmodel
 
+import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.muhammedkursat.kotlincountries.model.Country
@@ -10,7 +11,7 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 
-class FeedViewModel:ViewModel() {
+class FeedViewModel(application: Application): BaseViewModel(application) {
     private val countryApiService = CountryAPIService()
     private val disposable = CompositeDisposable()
 
@@ -33,26 +34,33 @@ class FeedViewModel:ViewModel() {
     }
 
     fun getDataFromAPI(){
-        countryLoading.value = true
+        countryLoading.value = true // pencere acilir acilmaz proggressbar gorunsun
 
-        countryApiService.getData()
-            .subscribeOn(Schedulers.newThread())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(object : DisposableSingleObserver<List<Country>>(){
-                override fun onSuccess(value: List<Country>?) {
-                    value?.let {
-                        countryList.value = it
-                        countryError.value = false
-                        countryLoading.value = false
+        disposable.add(// kullan at object
+            countryApiService.getData()
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(object : DisposableSingleObserver<List<Country>>(){
+                    override fun onSuccess(value: List<Country>?) {
+                        value?.let {
+                            showCountries(it)
+                        }
                     }
-                }
-                override fun onError(e: Throwable?) {
-                    countryError.value = true
-                    countryLoading.value = false
-                    e!!.printStackTrace()
-                }
+                    override fun onError(e: Throwable?) {
+                        countryError.value = true
+                        countryLoading.value = false
+                        e!!.printStackTrace()
+                    }
 
-            })
+                })
+        )
+    }
+    private fun showCountries(mycountryList : List<Country>){
+        countryList.value = mycountryList
+        countryError.value = false
+        countryLoading.value = false
+    }
+    private fun storeInSQLite(list : List<Country>){
 
     }
 }

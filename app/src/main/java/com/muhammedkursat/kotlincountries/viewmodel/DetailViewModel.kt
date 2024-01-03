@@ -1,10 +1,11 @@
 package com.muhammedkursat.kotlincountries.viewmodel
 
+import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.muhammedkursat.kotlincountries.model.Country
 
-class DetailViewModel: ViewModel() {
+class DetailViewModel(application: Application): BaseViewModel(application) {
     val countryLiveData = MutableLiveData<Country>()
     fun refreshDetails(position:Int){
         val country = Country("Türkiye","World","Ankara","www.ss.com","TRY","Turkish")

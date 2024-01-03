@@ -21,6 +21,9 @@ interface CountryDao {
     @Query("DELETE FROM country")
     suspend fun deleteAllCountries()
 
+    @Query("DELETE FROM country WHERE uuID = :id")
+    suspend fun deleteWithID(id : Int)
+
     @Delete
     suspend fun deleteCountry(country: Country)
 }

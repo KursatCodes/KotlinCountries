@@ -38,8 +38,8 @@ class CountryAdapter(var countryList: ArrayList<Country>): RecyclerView.Adapter<
             var action = FeedFragmentDirections.actionFeedFragmentToDetailsFragment(position)
             Navigation.findNavController(it).navigate(action)
         }
-        holder.imageView.downloadImagesFromUrl(
-            countryList[position].countryFlag,
+        holder.imageView.downloadImagesFromUrl( // extention olarak tanimladigimiz icin hazir fonksiyon
+            countryList[position].countryFlag, //   gibi kullanabiliyoruz
             placeHolderProgressBar(holder.view.context)
         )
     }
