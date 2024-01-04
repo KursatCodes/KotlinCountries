@@ -35,7 +35,7 @@ class CountryAdapter(var countryList: ArrayList<Country>): RecyclerView.Adapter<
         holder.nametext.text = countryList[position].countryName
         holder.regiontext.text = countryList[position].countryRegion
         holder.view.setOnClickListener {
-            var action = FeedFragmentDirections.actionFeedFragmentToDetailsFragment(position)
+            var action = FeedFragmentDirections.actionFeedFragmentToDetailsFragment(countryList[position].uuID)
             Navigation.findNavController(it).navigate(action)
         }
         holder.imageView.downloadImagesFromUrl( // extention olarak tanimladigimiz icin hazir fonksiyon

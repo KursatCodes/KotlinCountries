@@ -5,15 +5,19 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.muhammedkursat.kotlincountries.model.Country
 import com.muhammedkursat.kotlincountries.sevice.CountryAPIService
+import com.muhammedkursat.kotlincountries.sevice.CountryDatabase
+import com.muhammedkursat.kotlincountries.util.CustomSharedPreference
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.launch
 
 class FeedViewModel(application: Application): BaseViewModel(application) {
     private val countryApiService = CountryAPIService()
     private val disposable = CompositeDisposable()
+    private var customSharedPreference = CustomSharedPreference(getApplication())
 
     val countryList = MutableLiveData<List<Country>>()
     val countryError = MutableLiveData<Boolean>()
@@ -43,7 +47,7 @@ class FeedViewModel(application: Application): BaseViewModel(application) {
                 .subscribeWith(object : DisposableSingleObserver<List<Country>>(){
                     override fun onSuccess(value: List<Country>?) {
                         value?.let {
-                            showCountries(it)
+                            storeInSQLite(it)
                         }
                     }
                     override fun onError(e: Throwable?) {
@@ -51,7 +55,6 @@ class FeedViewModel(application: Application): BaseViewModel(application) {
                         countryLoading.value = false
                         e!!.printStackTrace()
                     }
-
                 })
         )
     }
@@ -61,6 +64,17 @@ class FeedViewModel(application: Application): BaseViewModel(application) {
         countryLoading.value = false
     }
     private fun storeInSQLite(list : List<Country>){
-
+        launch {
+            val dao = CountryDatabase(getApplication()).countryDao()
+            dao.deleteAllCountries()
+            val listLong = dao.insertAll(*list.toTypedArray())// diziyi tek tek veriyor kotline ozel ;)
+            var i = 0
+            while (i < list.size){
+                list[i].uuID = listLong[i].toString().toInt()
+                i++
+            }
+            showCountries(list)
+        }
+        customSharedPreference.saveTime(System.nanoTime())//zamani kaydediyoruz
     }
 }
