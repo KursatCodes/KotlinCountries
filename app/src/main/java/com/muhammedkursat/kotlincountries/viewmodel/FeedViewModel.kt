@@ -1,6 +1,7 @@
 package com.muhammedkursat.kotlincountries.viewmodel
 
 import android.app.Application
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.muhammedkursat.kotlincountries.model.Country
@@ -18,6 +19,7 @@ class FeedViewModel(application: Application): BaseViewModel(application) {
     private val countryApiService = CountryAPIService()
     private val disposable = CompositeDisposable()
     private var customSharedPreference = CustomSharedPreference(getApplication())
+    private val timeLimit = 0.1 * 60 * 1000 * 1000 * 1000L
 
     val countryList = MutableLiveData<List<Country>>()
     val countryError = MutableLiveData<Boolean>()
@@ -32,12 +34,26 @@ class FeedViewModel(application: Application): BaseViewModel(application) {
         countryList.value = countries
         countryError.value = false
         countryLoading.value = false
-    }
+    } // test icin yapilan fonksiyon
     fun refreshData(){
-        getDataFromAPI()
+        var updateTime = customSharedPreference?.getTime()
+        if (updateTime != null && updateTime != 0L && System.nanoTime() - updateTime < timeLimit){
+            getDataFromSQLite()
+        }else{
+            getDataFromAPI()
+        }
+
+    }
+    fun getDataFromSQLite(){
+        launch {
+            val countryes = CountryDatabase(getApplication()).countryDao().getAllCountries()
+            showCountries(countryes)
+            Toast.makeText(getApplication(),"from SQL",Toast.LENGTH_LONG).show()
+        }
     }
 
     fun getDataFromAPI(){
+        Toast.makeText(getApplication(),"from INTERNET",Toast.LENGTH_LONG).show()
         countryLoading.value = true // pencere acilir acilmaz proggressbar gorunsun
 
         disposable.add(// kullan at object
