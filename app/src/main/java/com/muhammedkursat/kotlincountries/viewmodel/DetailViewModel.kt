@@ -1,6 +1,7 @@
 package com.muhammedkursat.kotlincountries.viewmodel
 
 import android.app.Application
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.muhammedkursat.kotlincountries.model.Country
@@ -15,17 +16,17 @@ class DetailViewModel(application: Application): BaseViewModel(application) {
         val country3 = Country("Filistin","Asia","Kudüs","www.ss.com","DNR","Arabic")
 
         var countries = arrayListOf<Country>(country,country2,country3)
-        countryLiveData.value = getCountriesFromDB(position)
+        getCountriesFromDB(position)
 
     }
-    private fun getCountriesFromDB(position: Int):Country{
-        var country = Country("","","","","","")
+    private fun getCountriesFromDB(position : Int){
         launch {
-            val dao = CountryDatabase(getApplication()).countryDao()
-            country = dao.getCountry(position)
-            countryLiveData.value = getCountriesFromDB(position)
+            var country = CountryDatabase(getApplication()).countryDao().getCountry(position)
+            showCountryees(country)
+            Toast.makeText(getApplication(),"from SQL", Toast.LENGTH_SHORT).show()
         }
-
-        return country
+    }
+    fun showCountryees(country : Country){
+        countryLiveData.value = country
     }
 }

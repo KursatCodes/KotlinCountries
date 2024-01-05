@@ -11,6 +11,8 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.get
 import com.muhammedkursat.kotlincountries.R
 import com.muhammedkursat.kotlincountries.databinding.FragmentDetailsBinding
+import com.muhammedkursat.kotlincountries.util.downloadImagesFromUrl
+import com.muhammedkursat.kotlincountries.util.placeHolderProgressBar
 import com.muhammedkursat.kotlincountries.viewmodel.DetailViewModel
 
 class DetailsFragment : Fragment() {
@@ -50,6 +52,10 @@ class DetailsFragment : Fragment() {
                 binding.currencyTextDetail.setText(it.countryCurrency)
                 binding.languageTextDetail.setText(it.countryLanguage)
                 binding.regionTextDetail.setText(it.countryRegion)
+                binding.flagImage.downloadImagesFromUrl(
+                    it.countryFlag,
+                    placeHolderProgressBar(viewModel.getApplication())
+                )
             }
         })
 
