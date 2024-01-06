@@ -19,7 +19,7 @@ class FeedViewModel(application: Application): BaseViewModel(application) {
     private val countryApiService = CountryAPIService()
     private val disposable = CompositeDisposable()
     private var customSharedPreference = CustomSharedPreference(getApplication())
-    private val timeLimit = 0.1 * 60 * 1000 * 1000 * 1000L
+    private val timeLimit = 10 * 60 * 1000 * 1000 * 1000L
 
     val countryList = MutableLiveData<List<Country>>()
     val countryError = MutableLiveData<Boolean>()
@@ -32,7 +32,7 @@ class FeedViewModel(application: Application): BaseViewModel(application) {
     } // test icin yapilan fonksiyon
     fun refreshData(){
         var updateTime = customSharedPreference?.getTime()
-        if (updateTime != null && updateTime != 0L && System.nanoTime() - updateTime < timeLimit){
+        if (updateTime != null && updateTime != 0L && ((System.nanoTime() - updateTime) < timeLimit)){
             getDataFromSQLite()
         }else{
             getDataFromAPI()
@@ -43,12 +43,12 @@ class FeedViewModel(application: Application): BaseViewModel(application) {
         launch {
             val countryes = CountryDatabase(getApplication()).countryDao().getAllCountries()
             showCountries(countryes)
-            Toast.makeText(getApplication(),"from SQL",Toast.LENGTH_LONG).show()
+            Toast.makeText(getApplication(),"from SQL",Toast.LENGTH_SHORT).show()
         }
     }
 
     fun getDataFromAPI(){
-        Toast.makeText(getApplication(),"from INTERNET",Toast.LENGTH_LONG).show()
+        Toast.makeText(getApplication(),"from INTERNET",Toast.LENGTH_SHORT).show()
         countryLoading.value = true // pencere acilir acilmaz proggressbar gorunsun
 
         disposable.add(// kullan at object
@@ -87,5 +87,10 @@ class FeedViewModel(application: Application): BaseViewModel(application) {
             showCountries(list)
         }
         customSharedPreference.saveTime(System.nanoTime())//zamani kaydediyoruz
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        disposable.clear()
     }
 }

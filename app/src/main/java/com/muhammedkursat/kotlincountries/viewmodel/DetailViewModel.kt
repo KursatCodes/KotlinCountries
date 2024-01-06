@@ -11,11 +11,6 @@ import kotlinx.coroutines.launch
 class DetailViewModel(application: Application): BaseViewModel(application) {
     val countryLiveData = MutableLiveData<Country>()
     fun refreshDetails(position:Int){
-        val country = Country("Türkiye","World","Ankara","www.ss.com","TRY","Turkish")
-        val country2 = Country("Azerbaycan","Asia","Bakü","www.ss.com","AZR","Turkish")
-        val country3 = Country("Filistin","Asia","Kudüs","www.ss.com","DNR","Arabic")
-
-        var countries = arrayListOf<Country>(country,country2,country3)
         getCountriesFromDB(position)
 
     }

@@ -14,7 +14,6 @@
             android:layout_alignParentTop="true"
             android:scaleType="fitCenter"
             android:minHeight="200dp"
-            android:src="@mipmap/ic_launcher"
             android:layout_marginTop="10dp">
         </ImageView>
 
