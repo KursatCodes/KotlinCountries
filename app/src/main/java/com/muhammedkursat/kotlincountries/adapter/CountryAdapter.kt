@@ -16,7 +16,7 @@ import com.muhammedkursat.kotlincountries.util.downloadImagesFromUrl
 import com.muhammedkursat.kotlincountries.util.placeHolderProgressBar
 import com.muhammedkursat.kotlincountries.view.FeedFragmentDirections
 
-class CountryAdapter(var countryList: ArrayList<Country>): RecyclerView.Adapter<CountryAdapter.CountryViewHolder>() {
+class CountryAdapter(var countryList: ArrayList<Country>): RecyclerView.Adapter<CountryAdapter.CountryViewHolder>(),CountryClickListener {
     class CountryViewHolder(var view: ItemCountryBinding) :ViewHolder(view.root){//holder sinifimiz
 //        val nametext= view.findViewById<TextView>(R.id.nameText)
 //        val regiontext= view.findViewById<TextView>(R.id.regionText)
@@ -37,6 +37,7 @@ class CountryAdapter(var countryList: ArrayList<Country>): RecyclerView.Adapter<
     override fun onBindViewHolder(holder: CountryViewHolder, position: Int) {// adapterdeki itemlara ulasıyoruz
 
         holder.view.country = countryList[position]
+        holder.view.clickListener = this
 
 
 //        holder.nametext.text = countryList[position].countryName
@@ -54,5 +55,13 @@ class CountryAdapter(var countryList: ArrayList<Country>): RecyclerView.Adapter<
         countryList.clear()
         countryList.addAll(newList)
         notifyDataSetChanged() // adaptoru yenilemek icin kullaniyoruz
+    }
+
+    override fun onCountryClicked(v: View) {
+        //var uuID = ItemCountryBinding.bind(v).uuIDText.toString().toInt()
+        val binding = DataBindingUtil.getBinding<ItemCountryBinding>(v)
+        var uuID = binding?.uuIDText?.text.toString().toInt()
+        var action = FeedFragmentDirections.actionFeedFragmentToDetailsFragment(uuID)
+        Navigation.findNavController(v).navigate(action)
     }
 }

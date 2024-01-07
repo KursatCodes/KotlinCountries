@@ -6,13 +6,25 @@
         <variable
             name="country"
             type="com.muhammedkursat.kotlincountries.model.Country" />
+        <variable
+            name="clickListener"
+            type="com.muhammedkursat.kotlincountries.adapter.CountryClickListener" />
     </data>
 <LinearLayout
+    android:onClick="@{clickListener::onCountryClicked}"
     android:id="@+id/buyukLinearLayout"
     android:layout_width="match_parent"
     android:layout_height="123dp"
     android:orientation="horizontal"
-    android:padding="7dp">
+    android:padding="7dp"
+    >
+    <TextView
+        android:id="@+id/uuIDText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:text="@{String.valueOf(country.uuID)}">
+    </TextView>
 <ImageView
     android:id="@+id/imageView"
     android:layout_width="133dp"
