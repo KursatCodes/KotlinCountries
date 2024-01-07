@@ -2,6 +2,7 @@ package com.muhammedkursat.kotlincountries.util
 
 import android.content.Context
 import android.widget.ImageView
+import androidx.databinding.BindingAdapter
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -23,4 +24,8 @@ fun placeHolderProgressBar(context: Context) :CircularProgressDrawable{
         centerRadius = 50f
         start()
     }
+}
+@BindingAdapter("android:downlandImage")
+fun downloadImage(view: ImageView, url: String?){
+    view.downloadImagesFromUrl(url, placeHolderProgressBar(view.context))
 }

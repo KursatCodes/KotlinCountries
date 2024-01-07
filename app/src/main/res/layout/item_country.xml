@@ -19,7 +19,7 @@
     android:layout_height="match_parent"
     android:layout_weight="2"
     android:padding="3dp"
-    android:src="@mipmap/ic_launcher"/>
+    android:downlandImage="@{country.countryFlag}"/>
     <LinearLayout
         android:id="@+id/kucukLinearLayout"
         android:layout_width="wrap_content"
